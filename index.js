@@ -4,7 +4,12 @@
 /* Create variables for principal, interest rate, and years. Assign them the values 200000, 0.05, and 30 respectively. Create another value called name and give it the value of your own name.
 */
 
+let principal = 200000;
+let interestRate = 0.05;
+let years = 30;
+let name = "Nicole";
 
+console.log(principal, interestRate, years, name);
 
 
 
@@ -16,19 +21,34 @@ Create a variable called `monthlyInterestRate` and give it the value of interest
 Create another variable called `periods` and give it the value of years*12.
 */
 
+let monthlyInterestRate = interestRate / 12;
+let period = years * 12;
 
-
+console.log(monthlyInterestRate, period);
 
 // 🏡 Task 2: Harder Math
 /* Create your calculator! Use the formula in the ReadMe to run calculations on your numbers. Save the final value into a variable called monthlyRate.
 
 Hint: while these calculations can be done in one line, it might be helpful to create a variable called "numerator" to calculate the numerator, and another called "denominator" to calculate the denominator 
 
-Hint #2: you'll need to use the `math` object for parts of this calculation!
+Hint #2: you'll need to use the `math` object for parts of this calculation! M = P [ I ( 1 + I )^N ] / [ ( 1 + I )^N – 1 ]
+monthlyRate = principal * [ (monthlyInterestRate * (1 + monthlyInterestRate)^period) / ((1 + monthlyInterestRate)^period)-1)]
+```
+In order to find your monthly payment amount "M,” you need to plug in the following three numbers from your loan:
+
+`P` = Principal amount (the total amount borrowed)
+`I` = Interest rate on the mortgage
+`N` = Number of periods (monthly mortgage payments)
 
 When your math is correct, monthlyRate will equal 1073.64
 */
+let numerator = monthlyInterestRate * (1+monthlyInterestRate)**period;
+let denominator = ((1+monthlyInterestRate)**period) - 1;
 
+let monthlyRate = principal * (numerator/denominator);
+
+
+console.log(monthlyRate);
 
 
 
@@ -38,8 +58,24 @@ When your math is correct, monthlyRate will equal 1073.64
 If your name is `Oscar` mortgageCalculator() should return "Oscar, your monthly rate is 1073.64"
 */
 
+// Solution// 
 
+function mortgageCalculator(p, i, y){
+    let principal = p;
+    let interestRate = i;
+    let years = y;
+    let monthlyInterestRate = interestRate / 12;
+    let period = years * 12;
+    let numerator = monthlyInterestRate * (1+monthlyInterestRate)**period;
+    let denominator = ((1+monthlyInterestRate)**period) - 1;
+    let monthlyRate = principal * (numerator/denominator);
+    let payment = (Math.floor(monthlyRate * 100)) /100;
+    return payment;
+}
 
+name = "Oscar";
+
+console.log(name+', your monthly rate is $'+ mortgageCalculator(200000, 0.05, 30)+'.');
 
 
 // 🏡 Task 4: Arguments and Parameters
@@ -49,6 +85,7 @@ For example,
 mortgageCalculator(2000000, 0.05, 30); <-- should return 1,073.64
 */
 
+// That's what I did in task 3...
 
 
 
@@ -57,8 +94,35 @@ mortgageCalculator(2000000, 0.05, 30); <-- should return 1,073.64
 /* Add another paramter to your function called credit score. This parameter will be a number between 0 and 800 (a credit score).
 
 Then, add control flow within your function such that IF creditScore is above 740, interest rate drops by 0.5%, if credit score is below 660, interest rate increases by 0.5% and if credit score is anywhere between 660 and 740 interest rate doesn't change.
-*/
+// */
+function mortgageCalculatorCredit(p, i, y, s){
+    let principal = p;
+    let years = y;
+    let period = years * 12;
+    let interestRate;
 
+    if (s > 740){
+        interestRate = i - .005;
+       
+    }
+    else if (s < 660){
+        interestRate = i + .005;
+       
+    } else{ 
+        interestRate = i;
+       
+    }
+
+    let monthlyInterestRate = interestRate / 12;
+    let numerator = monthlyInterestRate * (1+monthlyInterestRate)**period;
+    let denominator = ((1+monthlyInterestRate)**period) - 1;
+    let monthlyRate = principal * (numerator/denominator);
+    let payment = (Math.floor(monthlyRate * 100)) /100;
+    return payment;
+}
+name = "Oscar";
+
+console.log(name+', your monthly rate is $'+ mortgageCalculatorCredit(200000, 0.05, 30, 500)+'.');
 
 
 
@@ -78,6 +142,27 @@ For example, variableInterestRate(200000, 0.04, 30) should console.log:
 "{Name}, with an interest rate of 0.06, your monthly rate is $1199"
 */
 
+function variableInterestRate(p, i, y){
+    let interestRate= i- .02;
+     for(let x=0; x<10; x++){
+
+        let principal = p;
+        let years = y;
+        let period = years * 12;
+        let monthlyInterestRate = interestRate / 12;
+        let numerator = monthlyInterestRate * (1+monthlyInterestRate)**period;
+        let denominator = ((1+monthlyInterestRate)**period) - 1;
+        let monthlyRate = principal * (numerator/denominator);
+        let payment = (Math.floor(monthlyRate * 100)) /100;
+        let name = "Oscar";
+
+        console.log(name+' with an interest rate of '+ interestRate + ', your monthly rate is $'+ payment+'.');
+        interestRate = interestRate + .005;
+    }
+    
+}
+
+variableInterestRate(20000, .04, 30);
 
 
 
@@ -86,6 +171,29 @@ For example, variableInterestRate(200000, 0.04, 30) should console.log:
 /* Attempt any of the stretch goals below once you have finished the work above. Remember as always, these may require additional research beyond what you learned today */
 
 /*  🏡 Add  `Property Tax`, `Homeowner's insurance` and `HOA fees` as parameters in your function to calculate total monthly spending on housing */
+
+function totalHousingSpending(p, i, y, tax, ins, hoa){
+    let interestRate= i- .02;
+    
+     for(let x=0; x<10; x++){
+
+        let principal = p;
+        let years = y;
+        let period = years * 12;
+        let monthlyInterestRate = interestRate / 12;
+        let numerator = monthlyInterestRate * (1+monthlyInterestRate)**period;
+        let denominator = ((1+monthlyInterestRate)**period) - 1;
+        let monthlyRate = principal * (numerator/denominator);
+        let payment = (Math.floor(monthlyRate * 100)) /100;
+        let name = "Oscar";
+        let totalCosts = payment + tax + ins + hoa;
+        console.log(name+' with an interest rate of '+ interestRate + ', your monthly rate is $'+ payment+'and total monthly spending is $' + totalCosts +'.');
+        interestRate = interestRate + .005;
+    }
+    
+}
+
+totalHousingSpending(20000, .04, 30, 1200, 60, 90);
 
 
 /* 🏡 Build a calculator function that accepts `monthly payment` and `interest rate` and returns the maximum loan that a person could afford */
