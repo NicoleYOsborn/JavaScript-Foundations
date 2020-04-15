@@ -172,6 +172,29 @@ variableInterestRate(20000, .04, 30);
 
 /*  🏡 Add  `Property Tax`, `Homeowner's insurance` and `HOA fees` as parameters in your function to calculate total monthly spending on housing */
 
+function totalHousingSpending(p, i, y, tax, ins, hoa){
+    let interestRate= i- .02;
+    
+     for(let x=0; x<10; x++){
+
+        let principal = p;
+        let years = y;
+        let period = years * 12;
+        let monthlyInterestRate = interestRate / 12;
+        let numerator = monthlyInterestRate * (1+monthlyInterestRate)**period;
+        let denominator = ((1+monthlyInterestRate)**period) - 1;
+        let monthlyRate = principal * (numerator/denominator);
+        let payment = (Math.floor(monthlyRate * 100)) /100;
+        let name = "Oscar";
+        let totalCosts = payment + tax + ins + hoa;
+        console.log(name+' with an interest rate of '+ interestRate + ', your monthly rate is $'+ payment+'and total monthly spending is $' + totalCosts +'.');
+        interestRate = interestRate + .005;
+    }
+    
+}
+
+totalHousingSpending(20000, .04, 30, 1200, 60, 90);
+
 
 /* 🏡 Build a calculator function that accepts `monthly payment` and `interest rate` and returns the maximum loan that a person could afford */
 
