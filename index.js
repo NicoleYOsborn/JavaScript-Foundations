@@ -4,7 +4,12 @@
 /* Create variables for principal, interest rate, and years. Assign them the values 200000, 0.05, and 30 respectively. Create another value called name and give it the value of your own name.
 */
 
+let principal = 200000;
+let interestRate = 0.05;
+let years = 30;
+let name = "Nicole";
 
+console.log(principal, interestRate, years, name);
 
 
 
@@ -16,19 +21,34 @@ Create a variable called `monthlyInterestRate` and give it the value of interest
 Create another variable called `periods` and give it the value of years*12.
 */
 
+let monthlyInterestRate = interestRate / 12;
+let period = years * 12;
 
-
+console.log(monthlyInterestRate, period);
 
 // 🏡 Task 2: Harder Math
 /* Create your calculator! Use the formula in the ReadMe to run calculations on your numbers. Save the final value into a variable called monthlyRate.
 
 Hint: while these calculations can be done in one line, it might be helpful to create a variable called "numerator" to calculate the numerator, and another called "denominator" to calculate the denominator 
 
-Hint #2: you'll need to use the `math` object for parts of this calculation!
+Hint #2: you'll need to use the `math` object for parts of this calculation! M = P [ I ( 1 + I )^N ] / [ ( 1 + I )^N – 1 ]
+monthlyRate = principal * [ (monthlyInterestRate * (1 + monthlyInterestRate)^period) / ((1 + monthlyInterestRate)^period)-1)]
+```
+In order to find your monthly payment amount "M,” you need to plug in the following three numbers from your loan:
+
+`P` = Principal amount (the total amount borrowed)
+`I` = Interest rate on the mortgage
+`N` = Number of periods (monthly mortgage payments)
 
 When your math is correct, monthlyRate will equal 1073.64
 */
+let numerator = monthlyInterestRate * (1+monthlyInterestRate)**period;
+let denominator = ((1+monthlyInterestRate)**period) - 1;
 
+let monthlyRate = principal * (numerator/denominator);
+
+
+console.log(monthlyRate);
 
 
 
@@ -38,8 +58,22 @@ When your math is correct, monthlyRate will equal 1073.64
 If your name is `Oscar` mortgageCalculator() should return "Oscar, your monthly rate is 1073.64"
 */
 
+function mortgageCalculator(p, i, y){
+    principal = p;
+    interestRate = i;
+    years = y;
+    monthlyInterestRate = interestRate / 12;
+    period = years * 12;
+    numerator = monthlyInterestRate * (1+monthlyInterestRate)**period;
+    denominator = ((1+monthlyInterestRate)**period) - 1;
+    monthlyRate = principal * (numerator/denominator);
+    payment = (Math.floor(monthlyRate * 100)) /100;
+    return payment;
+}
 
+name = "Oscar";
 
+console.log(name+', your monthly rate is $'+ mortgageCalculator(200000, 0.05, 30)+'.');
 
 
 // 🏡 Task 4: Arguments and Parameters
